@@ -51,4 +51,5 @@ class HelloWorld(object):
 		tmpl = env.get_template('index.html')
 		return tmpl.render(list=json.dumps(stats))
 if __name__ == '__main__':
-	cherrypy.quickstart(HelloWorld())
+	configfile = os.path.join(os.path.dirname(__file__),'server.conf')
+	cherrypy.quickstart(HelloWorld(),config=configfile)
