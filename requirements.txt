@@ -4,3 +4,4 @@ tabulate
 numpy 
 matplotlib
 cherrypy
+jinja2
