@@ -54,6 +54,6 @@ if __name__ == '__main__':
 	configfile = os.path.join(os.path.dirname(__file__),'server.conf')
 	cherrypy.config.update({
 	    'server.socket_host':'0.0.0.0',
-	    'server.socket_port': 5000, # default port is 8080 you can chage default port number here
+	    'server.socket_port': os.environ.get('PORT', '5000'), # default port is 8080 you can chage default port number here
 	})
 	cherrypy.quickstart(HelloWorld(),config=configfile)
