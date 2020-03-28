@@ -35,6 +35,7 @@ class HelloWorld(object):
 				elif len(stat) ==6:
 					stats.append(stat)
 		stats[-1][1] = "Total Cases"
+		totalCases = stats[-1]
 		stats.remove(stats[-1])
 
 		objects = []
@@ -49,7 +50,7 @@ class HelloWorld(object):
 		table = tabulate(stats,headers = SHORT_HEADERS)
 		print(table)
 		tmpl = env.get_template('index.html')
-		return tmpl.render(list=json.dumps(stats))
+		return tmpl.render(list=json.dumps(stats),totalCases= json.dumps(totalCases))
 if __name__ == '__main__':
 	configfile = os.path.join(os.path.dirname(__file__),'server.conf')
 	cherrypy.config.update({
