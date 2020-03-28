@@ -54,10 +54,17 @@
 	};
 	$(document).ready(function() {
 		var tmp = {{ list }};
+
+		var total = {{totalCases}}
+		console.log("total Data:"+JSON.stringify(total))
+	/*$.extend($.fn.dataTable.defaults, {
+	    sDom: '<"top"i>rCt<"bottom"flp><"clear">'
+	});*/
+	$("#example").append('<tfoot><th></th><th></th><th></th><th></th><th></th><th></th></tfoot>');
     $('#example').DataTable( {
     	data:tmp,
         "language": {
-		    "search": "Filter by SNo:"
+		    "search": "Filter by State:"
 		},
 		
         "columnDefs": [
@@ -67,7 +74,45 @@
 			{"searchable": false, "targets": 3 },
 			{"searchable": false, "targets": 4 },
 		],
-        "columns": my_columns.columns
+        "columns": my_columns.columns,
+        oLanguage: {sEmptyTable: "No logs"},
+	    fnFooterCallback: function(nRow, aaData, iStart, iEnd, aiDisplay) {
+	        var api = this.api();
+	        var totalDisp = ''
+	        var totalIndianConfirmed = ''
+	        var totalForiegnConfirmed = ''
+	        var totalCured = 0
+	        var totalDeath = 0
+	        aaData.forEach(function(x) {
+	        	console.log(JSON.stringify(total))
+        			totalDisp = total[1]
+        			totalIndianConfirmed = total[2]
+        			totalForiegnConfirmed = total[3]
+        			totalCured = total[4]
+				totalDeath = total[5]
+	            
+	        });
+	        // I need a footer in my table before doing this, what is the smartest way to add the footer?
+	        $(api.column(1).footer()).html(
+	        	totalDisp
+
+	        );
+	        $(api.column(2).footer()).html(
+	        	totalIndianConfirmed
+
+	        ); 
+	        $(api.column(3).footer()).html(
+	        	totalForiegnConfirmed
+
+	        ); 
+	        $(api.column(4).footer()).html(
+	            totalCured
+	        ); 
+	        $(api.column(5).footer()).html(
+	            totalDeath
+
+	        );         
+	    }
     } );
 } );
 </script>
